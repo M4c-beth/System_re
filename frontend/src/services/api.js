@@ -45,13 +45,18 @@ export const authAPI = {
   },
 };
 
+// Update the expenseAPI object to include the create method
 export const expenseAPI = {
   getAll: async () => {
     const response = await api.get('/expenses');
     return response.data;
   },
   create: async (expenseData) => {
-    const response = await api.post('/expenses', expenseData);
+    const response = await api.post('/expenses', expenseData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
     return response.data;
   },
   // Add more expense-related API calls here

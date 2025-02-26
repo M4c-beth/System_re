@@ -7,13 +7,20 @@ const router = express.Router();
 
 // Register
 router.post("/register", async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, role } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
 
   try {
-    const newUser = await User.create({ name, email, password: hashedPassword });
+    // Make sure the role is explicitly handled
+    const newUser = await User.create({ 
+      name, 
+      email, 
+      password: hashedPassword,
+      role: role || "employee" // Default to employee if no role is specified
+    });
     res.status(201).json({ message: "User created", user: newUser });
   } catch (error) {
+    console.error("Registration error:", error);
     res.status(400).json({ error: "User registration failed" });
   }
 });

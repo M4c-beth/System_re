@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const authRoutes = require('./routes/authRoutes');
 const expenseRoutes = require('./routes/expenseRoutes');
 const quickbooksRoutes = require('./routes/quickbooksRoutes');
+const approvalRoutes = require('./routes/approvalRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -17,6 +18,7 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/expenses', expenseRoutes);
 app.use('/api/quickbooks', quickbooksRoutes);
+app.use('/api/approvals', approvalRoutes);
 
 // Default Route
 app.get('/', (req, res) => {

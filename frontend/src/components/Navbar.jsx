@@ -21,19 +21,41 @@ const Navbar = () => {
               Home
             </Link>
             {user && (
-              <Link to="/dashboard" className="flex items-center hover:text-blue-500">
-                Dashboard
-              </Link>
+              <>
+                <Link to="/dashboard" className="flex items-center hover:text-blue-500">
+                  Dashboard
+                </Link>
+                {(user.role === "manager" || user.role === "finance") && (
+                  <Link to="/approvals" className="flex items-center hover:text-blue-500">
+                    Approvals
+                  </Link>
+                )}
+                {(user.role === "manager" || user.role === "finance") && (
+                  <Link to="/reports" className="flex items-center hover:text-blue-500">
+                    Reports
+                  </Link>
+                )}
+                {user.role === "finance" && (
+                  <Link to="/quickbooks/export" className="flex items-center hover:text-blue-500">
+                    QuickBooks Export
+                  </Link>
+                )}
+              </>
             )}
           </div>
           <div className="flex items-center space-x-4">
             {user ? (
-              <button
-                onClick={handleLogout}
-                className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
-              >
-                Logout
-              </button>
+              <div className="flex items-center space-x-4">
+                <span className="text-gray-700">
+                  {user.name} ({user.role})
+                </span>
+                <button
+                  onClick={handleLogout}
+                  className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
+                >
+                  Logout
+                </button>
+              </div>
             ) : (
               <Link
                 to="/login"

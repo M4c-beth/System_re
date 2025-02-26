@@ -8,6 +8,10 @@ import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Navbar from "./components/Navbar";
 import "./styles/global.css";
+import ExpenseForm from "./pages/ExpenseForm";
+import ApprovalDashboard from "./pages/ApprovalDashboard";
+import QuickbooksExport from "./pages/QuickbooksExport";
+import Reports from "./pages/Reports";
 
 function App() {
   return (
@@ -18,13 +22,45 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
-            <Route 
-              path="/dashboard" 
+            <Route
+              path="/dashboard"
               element={
                 <ProtectedRoute>
                   <Dashboard />
                 </ProtectedRoute>
-              } 
+              }
+            />
+            <Route
+              path="/expenses/new"
+              element={
+                <ProtectedRoute>
+                  <ExpenseForm />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/approvals"
+              element={
+                <ProtectedRoute>
+                  <ApprovalDashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/quickbooks/export"
+              element={
+                <ProtectedRoute>
+                  <QuickbooksExport />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/reports"
+              element={
+                <ProtectedRoute>
+                  <Reports />
+                </ProtectedRoute>
+              }
             />
           </Routes>
         </div>
