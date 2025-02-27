@@ -12,6 +12,8 @@ import ExpenseForm from "./pages/ExpenseForm";
 import ApprovalDashboard from "./pages/ApprovalDashboard";
 import QuickbooksExport from "./pages/QuickbooksExport";
 import Reports from "./pages/Reports";
+import PaymentProcessing from "./pages/PaymentProcessing";
+
 
 function App() {
   return (
@@ -54,6 +56,11 @@ function App() {
                 </ProtectedRoute>
               }
             />
+        <Route path="/payments" element={
+          <ProtectedRoute>
+          <PaymentProcessing />
+          </ProtectedRoute>} />
+          
             <Route
               path="/reports"
               element={

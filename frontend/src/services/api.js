@@ -34,6 +34,10 @@ api.interceptors.response.use(
   }
 );
 
+
+
+
+
 export const authAPI = {
   login: async (credentials) => {
     const response = await api.post('/auth/login', credentials);
@@ -60,6 +64,24 @@ export const expenseAPI = {
     return response.data;
   },
   // Add more expense-related API calls here
+
+
+  
 };
+
+export const fetchQuickBooksPayments = async () => {
+  return await axios.get(`${API_BASE_URL}/quickbooks/payments`);
+};
+
+// Fetch approved expenses for payment processing
+export const fetchApprovedExpenses = async () => {
+  return await axios.get(`${API_BASE_URL}/payments`);
+};
+
+// Process payments
+export const processPayments = async () => {
+  return await axios.post(`${API_BASE_URL}/payments/process`);
+};
+
 
 export default api;

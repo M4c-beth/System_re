@@ -40,6 +40,11 @@ const Navbar = () => {
                     QuickBooks Export
                   </Link>
                 )}
+                {(user.role === "finance" || user.role === "manager") && (
+                  <Link to="/payments" className="flex items-center hover:text-blue-500">
+                    Payments Processing
+                  </Link>
+                )}
               </>
             )}
           </div>

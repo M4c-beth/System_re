@@ -28,6 +28,22 @@ router.get("/auth", (req, res) => {
   }
 });
 
+
+//Fetch Company Payments
+router.get("/payments", async (req, res) => {
+    try {
+        const payments = await makeApiCall("query?query=select * from Payment");
+        res.json(payments);
+    } catch (error) {
+        console.error("Payment Fetch Error:", error);
+        res.status(500).json({ error: "Failed to fetch payments", details: error.message });
+    }
+});
+
+
+
+
+
 // OAuth Callback Route
 router.get("/callback", async (req, res) => {
   try {
@@ -44,8 +60,8 @@ router.get("/callback", async (req, res) => {
     const authResponse = await exchangeToken(redirectUrl);
     console.log("QuickBooks Authentication Successful");
 
-    // Redirect to company info page
-    res.redirect("/api/quickbooks/company-info");
+    // Redirect to payment   page
+    res.redirect("/api/quickbooks/payments");
   } catch (error) {
     console.error("OAuth Callback Error:", error);
     res.status(500).json({

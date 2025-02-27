@@ -6,6 +6,11 @@ const authRoutes = require('./routes/authRoutes');
 const expenseRoutes = require('./routes/expenseRoutes');
 const quickbooksRoutes = require('./routes/quickbooksRoutes');
 const approvalRoutes = require('./routes/approvalRoutes');
+const { syncExpensesToQuickBooks } = require("./services/syncExpensesToQuickBooks");
+const paymentRoutes = require("./routes/paymentRoutes");
+
+// Run every 30 minutes
+setInterval(syncExpensesToQuickBooks, 30 * 60 * 1000);
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -19,11 +24,13 @@ app.use('/api/auth', authRoutes);
 app.use('/api/expenses', expenseRoutes);
 app.use('/api/quickbooks', quickbooksRoutes);
 app.use('/api/approvals', approvalRoutes);
+app.use("/api/payments", paymentRoutes);
 
 // Default Route
 app.get('/', (req, res) => {
     res.send('Backend is running!');
 });
+
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {
