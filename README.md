@@ -1,6 +1,6 @@
 # Employee Reimbursement System
 
-A full-stack application for managing employee expense reimbursements with AI-powered receipt processing and QuickBooks integration.
+A full-stack application for managing employee expense reimbursements with AI-powered receipt processing.
 
 ## Prerequisites
 
