@@ -10,8 +10,10 @@ import Navbar from "./components/Navbar";
 import "./styles/global.css";
 import ExpenseForm from "./pages/ExpenseForm";
 import ApprovalDashboard from "./pages/ApprovalDashboard";
-import QuickbooksExport from "./pages/QuickbooksExport";
+import MongoDBExport from "./pages/MongoDBExport";
 import Reports from "./pages/Reports";
+
+
 
 function App() {
   return (
@@ -47,10 +49,10 @@ function App() {
               }
             />
             <Route
-              path="/quickbooks/export"
+              path="/mongodb/export"
               element={
                 <ProtectedRoute>
-                  <QuickbooksExport />
+                  <MongoDBExport />
                 </ProtectedRoute>
               }
             />

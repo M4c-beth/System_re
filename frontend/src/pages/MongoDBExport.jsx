@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import api from "../services/api";
 
-const QuickbooksExport = () => {
+const MongoDBExport = () => {
   const [expenses, setExpenses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [exporting, setExporting] = useState(false);
@@ -11,7 +11,6 @@ const QuickbooksExport = () => {
   useEffect(() => {
     const fetchApprovedExpenses = async () => {
       try {
-        // This would be a new endpoint to get approved, non-exported expenses
         const response = await api.get('/expenses?status=Approved&exported=false');
         setExpenses(response.data);
       } catch (error) {
@@ -31,14 +30,13 @@ const QuickbooksExport = () => {
       setError(null);
       setResult(null);
       
-      const response = await api.post('/quickbooks/export');
+      const response = await api.post('/mongodb/export');
       setResult(response.data);
       
-      // Refresh the list of expenses
       const updatedExpenses = await api.get('/expenses?status=Approved&exported=false');
       setExpenses(updatedExpenses.data);
     } catch (error) {
-      setError("Failed to export expenses to QuickBooks");
+      setError("Failed to export expenses to MongoDB");
       console.error("Export error:", error);
     } finally {
       setExporting(false);
@@ -49,7 +47,7 @@ const QuickbooksExport = () => {
   
   return (
     <div className="max-w-4xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-6">QuickBooks Export</h2>
+      <h2 className="text-2xl font-bold mb-6">MongoDB Export</h2>
       
       {error && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
@@ -60,31 +58,9 @@ const QuickbooksExport = () => {
       {result && (
         <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6">
           <h3 className="font-bold">Export Successful</h3>
-          <p>Successfully exported expenses to QuickBooks.</p>
-          
-          {result.results && result.results.length > 0 && (
-            <div className="mt-2">
-              <p className="font-semibold">Summary:</p>
-              <ul className="list-disc ml-5">
-                {result.results.map((item, index) => (
-                  <li key={index}>
-                    {item.employee}: {item.expenseCount} expenses totaling ${item.totalAmount.toFixed(2)}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+          <p>Successfully exported expenses to MongoDB.</p>
         </div>
       )}
-      
-      <div className="mb-6">
-        <p className="text-gray-700 mb-2">
-          This page allows you to export approved expenses to QuickBooks for payment processing.
-        </p>
-        <p className="text-gray-500 text-sm">
-          Only expenses that have been approved and not previously exported will be included.
-        </p>
-      </div>
       
       {expenses.length === 0 ? (
         <div className="text-center py-8 bg-gray-50 rounded-lg">
@@ -92,13 +68,6 @@ const QuickbooksExport = () => {
         </div>
       ) : (
         <>
-          <div className="mb-4">
-            <h3 className="text-lg font-semibold">Expenses Ready for Export</h3>
-            <p className="text-sm text-gray-500">
-              {expenses.length} expenses totaling ${expenses.reduce((sum, exp) => sum + exp.amount, 0).toFixed(2)}
-            </p>
-          </div>
-          
           <table className="min-w-full divide-y divide-gray-200 mb-6">
             <thead className="bg-gray-50">
               <tr>
@@ -152,7 +121,7 @@ const QuickbooksExport = () => {
               disabled={exporting}
               className="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 disabled:bg-green-300"
             >
-              {exporting ? "Exporting..." : "Export to QuickBooks"}
+              {exporting ? "Exporting..." : "Export to MongoDB"}
             </button>
           </div>
         </>
@@ -161,4 +130,4 @@ const QuickbooksExport = () => {
   );
 };
 
-export default QuickbooksExport;
+export default MongoDBExport;

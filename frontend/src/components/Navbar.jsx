@@ -36,8 +36,8 @@ const Navbar = () => {
                   </Link>
                 )}
                 {user.role === "finance" && (
-                  <Link to="/quickbooks/export" className="flex items-center hover:text-blue-500">
-                    QuickBooks Export
+                  <Link to="/mongodb/export" className="flex items-center hover:text-blue-500">
+                    MongoDBExport
                   </Link>
                 )}
               </>

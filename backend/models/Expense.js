@@ -24,7 +24,7 @@ const ExpenseSchema = new mongoose.Schema({
   approvedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   approvalDate: Date,
   policyViolations: [String],
-  exportedToQuickbooks: { type: Boolean, default: false }
+  exportedToMongoDB: { type: Boolean, default: false }
 }, { timestamps: true });
 
 module.exports = mongoose.model("Expense", ExpenseSchema);
