@@ -64,9 +64,7 @@ cd reimbursement-system
    PORT=4000
    MONGO_URI=mongodb://localhost:27017/reimbursementDB
    JWT_SECRET=your_secure_secret_here
-   QB_CLIENT_ID=your_quickbooks_client_id
-   QB_CLIENT_SECRET=your_quickbooks_client_secret
-   QB_REDIRECT_URI=http://localhost:4000/api/quickbooks/callback
+
    ```
 
 ### 3. Frontend Setup
@@ -112,6 +110,11 @@ cd reimbursement-system
 ```bash
 cd backend
 npm run dev
+
+**### 1.2 This is to start Ai_receipt analyzer**
+create another terminal
+cd backend/routes
+uvicorn receipt_analysis:app --reload.
 ```
 The backend server will start on http://localhost:4000
 
@@ -167,7 +170,6 @@ reimbursement-system/
 - User authentication (login/register)
 - Protected routes
 - Expense dashboard
-- QuickBooks integration (setup required)
 - Receipt processing with AI (setup required)
 
 ## Troubleshooting
